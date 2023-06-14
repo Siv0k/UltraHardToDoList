@@ -56,8 +56,17 @@ function addTask() {
 document.getElementById("add").addEventListener("click", addTask);
 
 document.addEventListener("click", function(e) {
+    const list = document.getElementsByClassName('list')[0];
+    const li = list.querySelectorAll("li");
+    const p = document.getElementById("now");
     if (e.target.id === "delete") {
         e.target.parentElement.remove();
+    }
+    if (li.length === 0 && !p) {
+        const p = document.createElement("p");
+        p.textContent = "Нет задач";
+        p.id = "now";
+        list.appendChild(p);
     }
 });
 
