@@ -1,3 +1,6 @@
+html {
+    background-color: #e7e6e6;
+}
 .ToDo {
     width: 1000px;
     margin: 0 auto;
@@ -22,7 +25,7 @@
 
 #input {
     width: 95%;
-    padding: 10px 0;
+    padding: 10px;
     border: none;
     background-color: #0d0d8d;
     color: #fff;
@@ -34,6 +37,8 @@
 
 #input::placeholder {
     color: #fff;
+    padding: 0;
+    margin: 0;
 }
 
 #add {
@@ -50,18 +55,21 @@ p {
     text-align: center;
 }
 
+
+
 ul {
+    width: inherit;
     padding: 0;
     margin: 0;
 }
 
 li {
     list-style: none;
-    width: 100%;
+    width: inherit;
     background-color: #050561;
     color: #fff;
     margin: 0;
-    padding: 10px 0;
+    padding: 10px;
 }
 
 #delete {
