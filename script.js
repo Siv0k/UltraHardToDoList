@@ -8,6 +8,7 @@ function addTask() {
     const button = document.createElement("button");
     const nowLi = document.querySelectorAll("li");
     const span = document.createElement("span");
+  
 
     button.textContent = "X";
     button.id = "delete";
@@ -23,7 +24,6 @@ function addTask() {
     
     nowLi.forEach( (li) => {
         const taskTekst = li.querySelector("span").textContent;
-        console.log(taskTekst);
         if (taskTekst == input) {
             alert("Такая задача уже есть");
             exit = true;
@@ -38,6 +38,7 @@ function addTask() {
     if (!ul) {
         p.remove();
         const newUl = document.createElement("ul");
+        newUl.id = "nowUl";
         list.appendChild(newUl);
         newUl.appendChild(li);
         li.appendChild(span);
@@ -57,5 +58,28 @@ document.getElementById("add").addEventListener("click", addTask);
 document.addEventListener("click", function(e) {
     if (e.target.id === "delete") {
         e.target.parentElement.remove();
+    }
+});
+
+
+document.addEventListener("click", function(e) {
+    const doneList = document.getElementsByClassName("doneList")[0];
+    const ul = doneList.querySelector("ul");
+    p = doneList.querySelector("p");
+    if (e.target.id === "check") {
+        if (e.target.checked) {
+            if (!ul) {
+            p.remove();
+            const newUl = document.createElement("ul");
+            newUl.id = "doneUl";
+            doneList.appendChild(newUl);
+            newUl.appendChild(e.target.parentElement);
+            } else {  
+            ul.appendChild(e.target.parentElement);
+            }
+        } else {
+            const ul = document.getElementById('nowUl');
+            ul.appendChild(e.target.parentElement);
+        }
     }
 });
