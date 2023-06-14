@@ -37,6 +37,8 @@ function addTask() {
     const ul = document.getElementById("nowUl") || createNewList();
     p?.remove();
     ul.appendChild(li);
+    document.getElementById("input").value = "";
+
 }
 
 function createNewList() {
@@ -102,6 +104,7 @@ function createP(arr, p, list) {
 }
 
 document.getElementById("add").addEventListener("click", addTask);
+document.getElementById("input").addEventListener("keydown", (e) => e.key === "Enter" ? addTask() : null);
 
 document.addEventListener("click", (e) => { 
     if (e.target.id === "delete") {
