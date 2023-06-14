@@ -8,13 +8,13 @@ function addTask() {
     const button = document.createElement("button");
     const nowLi = document.querySelectorAll("li");
     const span = document.createElement("span");
-    let exit = false;
 
     button.textContent = "X";
     button.id = "delete";
     checkbox.type = "checkbox";
     checkbox.id = "check";
     span.textContent = input;
+    let exit = false;
 
     if (input === "") {
         alert("Вы не ввели задачу, попробуйте еще раз");
@@ -50,5 +50,12 @@ function addTask() {
         li.appendChild(button);
     }
 }
+    
 
 document.getElementById("add").addEventListener("click", addTask);
+
+document.addEventListener("click", function(e) {
+    if (e.target.id === "delete") {
+        e.target.parentElement.remove();
+    }
+});
