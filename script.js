@@ -11,6 +11,10 @@ function saveTasks() {
     const doneList = JSON.parse(localStorage.getItem("doneTasks")) || [];
     const nowUl = document.getElementById("nowUl") || createNewList();
     const doneUl = document.getElementById("doneUl") || createDoneList();
+    const pNow = document.getElementById("now");
+    const pDone = document.getElementById("done");
+    const list = document.getElementsByClassName('list')[0];
+    const List = document.getElementsByClassName("doneList")[0];
   
     nowUl.innerHTML = "";
     doneUl.innerHTML = "";
@@ -25,7 +29,18 @@ function saveTasks() {
       doneUl.appendChild(li);
     });
 
-  }
+    const li = list.querySelectorAll("li");
+    const liDone = List.querySelectorAll("li");
+
+    if (li.length !=0) {
+      pNow.remove();
+    } 
+
+    if (liDone.length !=0) {
+      pDone.remove();
+    } 
+}
+
   
   function addTask() {
     const input = document.getElementById("input").value;
