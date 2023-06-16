@@ -84,6 +84,22 @@ li {
     padding: 0;
 }
 
+#delete:hover {
+    box-shadow: 0 0 10px 0 #ff0000;
+
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+input[type="checkbox"]::-webkit-check-indicator,
+input[type="checkbox"]::-moz-check-indicator {
+  display: none;
+}
+
 #check {
     width: 14px;
     height: 14px;
@@ -93,3 +109,17 @@ li {
     padding: 0;
 }
 
+#check:hover {
+    background-image: url("https://img.icons8.com/33dd6c/checkmark.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#check:checked {
+    background-image: url("https://img.icons8.com/33dd6c/checkmark.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
