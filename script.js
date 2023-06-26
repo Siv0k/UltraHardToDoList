@@ -17,10 +17,10 @@ function saveTasks() {
     const doneChecked = JSON.parse(localStorage.getItem("doneChecked")) || [];
     const nowUl = document.getElementById("nowUl") || createNewList();
     const doneUl = document.getElementById("doneUl") || createDoneList();
-    const pNow = document.getElementById("now");
-    const pDone = document.getElementById("done");
-    const list = document.getElementsByClassName('list')[0];
-    const List = document.getElementsByClassName("doneList")[0];
+    const noTasksMessage = document.getElementById("noTasksMessage");
+    const doneTasksMessage = document.getElementById("doneTasksMessage");
+    const listContainer = document.getElementsByClassName('listContainer')[0];
+    const doneListContainer = document.getElementsByClassName("doneListContainer")[0];
   
     nowUl.innerHTML = "";
     doneUl.innerHTML = "";
@@ -39,16 +39,26 @@ function saveTasks() {
       doneUl.appendChild(li);
     });
 
-    const li = list.querySelectorAll("li");
-    const liDone = List.querySelectorAll("li");
+    const li = listContainer.querySelectorAll("li");
+    const liDone = doneListContainer.querySelectorAll("li");
 
-    if (li.length !=0) {
-      pNow.remove();
-    } 
+    if (li.length != 0) {
+      noTasksMessage.remove();
+    }
+  
+    if (liDone.length != 0) {
+      doneTasksMessage.remove();
+    }
 
-    if (liDone.length !=0) {
-      pDone.remove();
-    } 
+    document.addEventListener("click", (e) => {
+      if (e.target.id === "delete") {
+        removeTask.call(e.target);
+      }
+      if (e.target.id === "check") {
+        checkTask.call(e.target);
+      }
+    });
+    
 }
 
   
@@ -58,7 +68,7 @@ function saveTasks() {
     const checkbox = document.createElement("input");
     const span = document.createElement("span");
     const button = document.createElement("button");
-    const p = document.getElementById("now");
+    const noTasksMessage = document.getElementById("noTasksMessage");
   
     const repitTask = Array.from(document.querySelectorAll("li span")).some((span) => span.textContent === input);
   
@@ -83,26 +93,26 @@ function saveTasks() {
     li.appendChild(button);
   
     const ul = document.getElementById("nowUl") || createNewList();
-    p?.remove();
+    noTasksMessage?.remove();
     ul.appendChild(li);
     document.getElementById("input").value = "";
-  
+
     saveTasks();
   }
   
   function createNewList() {
-    const list = document.getElementsByClassName('list')[0];
+    const listContainer = document.getElementsByClassName('listContainer')[0];
     const ul = document.createElement("ul");
     ul.id = "nowUl";
-    list.appendChild(ul);
+    listContainer.appendChild(ul);
     return ul;
   }
   
   function createDoneList() {
-    const doneList = document.getElementsByClassName('doneList')[0];
+    const doneListContainer = document.getElementsByClassName('doneListContainer')[0];
     const ul = document.createElement("ul");
     ul.id = "doneUl";
-    doneList.appendChild(ul);
+    doneListContainer.appendChild(ul);
     return ul;
   }
   
@@ -127,57 +137,57 @@ function saveTasks() {
   
   function removeTask() {
     this.parentElement.remove();
-    const list = document.getElementsByClassName('list')[0];
-    const doneList = document.getElementsByClassName('doneList')[0];
-    const liNow = list.querySelectorAll("li");
-    const liDone = doneList.querySelectorAll("li");
-    const pNow = document.getElementById("now");
-    const pDone = document.getElementById("done");
-  
-    createParagraph(liNow, pNow, list);
-    createParagraph(liDone, pDone, doneList);
+    const listContainer = document.getElementsByClassName('listContainer')[0];
+    const doneListContainer = document.getElementsByClassName('doneListContainer')[0];
+    const liNow = listContainer.querySelectorAll("li");
+    const liDone = doneListContainer.querySelectorAll("li");
+    const noTasksMessage = document.getElementById("noTasksMessage");
+    const doneTasksMessage = document.getElementById("doneTasksMessage");
+
+    createParagraph(liNow, noTasksMessage, listContainer);
+    createParagraph(liDone, doneTasksMessage, doneListContainer);
   
     saveTasks();
   }
   
   function checkTask() {
-    const list = document.getElementsByClassName('list')[0];
-    const doneList = document.getElementsByClassName("doneList")[0];
-    const ul = doneList.querySelector("ul");
-    const pNow = document.getElementById("now");
-    const pDone = document.getElementById("done");
+    const listContainer = document.getElementsByClassName('listContainer')[0];
+    const doneListContainer = document.getElementsByClassName('doneListContainer')[0];
+    const ul = doneListContainer.querySelector("ul");
+    const noTasksMessage = document.getElementById("noTasksMessage");
+    const doneTasksMessage = document.getElementById("doneTasksMessage");
     const li = this.parentElement;
   
     if (this.checked) {
       if (!ul) {
-        pDone?.remove();
+        doneTasksMessage?.remove();
         const newUl = createDoneList();
         newUl.appendChild(li);
-        const liNow = list.querySelectorAll("li");
-        createParagraph(liNow, pNow, list);
+        const liNow = listContainer.querySelectorAll("li");
+        createParagraph(liNow, noTasksMessage, listContainer);
       } else {
-        pDone?.remove();
+        doneTasksMessage?.remove();
         ul.appendChild(li);
-        const liNow = list.querySelectorAll("li");
-        createParagraph(liNow, pNow, list);
+        const liNow = listContainer.querySelectorAll("li");
+        createParagraph(liNow, noTasksMessage, listContainer);
       }
     } else {
-      pNow?.remove();
+      noTasksMessage?.remove();
       const ul = document.getElementById('nowUl') || createNewList();
       ul.appendChild(li);
-      const liDone = doneList.querySelectorAll("li");
-      createParagraph(liDone, pDone, doneList);
+      const liDone = doneListContainer.querySelectorAll("li");
+      createParagraph(liDone, doneTasksMessage, doneListContainer);
     }
   
     saveTasks();
   }
   
-  function createParagraph(arr, p, list) {
+  function createParagraph(arr, p, listContainer) {
     if (arr.length === 0 && !p) {
       const newP = document.createElement("p");
-      newP.textContent = list.classList.contains("list") ? "Нет задач" : "Нет выполненных задач";
-      newP.id = list.classList.contains("list") ? "now" : "done";
-      list.appendChild(newP);
+      newP.textContent = listContainer.classList.contains("listContainer") ? "Нет задач" : "Нет выполненных задач";
+      newP.id = listContainer.classList.contains("listContainer") ? "noTasksMessage" : "doneTasksMessage";
+      listContainer.appendChild(newP);
     }
   }
   
@@ -187,16 +197,4 @@ function saveTasks() {
   add.addEventListener("click", addTask);
   const inputTask = document.getElementById("input");
   inputTask.addEventListener("keydown", (e) => e.key === "Enter" ? addTask() : null);
-  
-  document.addEventListener("click", (e) => {
-    if (e.target.id === "delete") {
-      removeTask.call(e.target);
-    }
-  });
-  
-  document.addEventListener("click", (e) => {
-    if (e.target.id === "check") {
-      checkTask.call(e.target);
-    }
-  });
   
