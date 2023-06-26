@@ -1,14 +1,20 @@
 function saveTasks() {
-    const nowList = Array.from(document.querySelectorAll("#nowUl li span")).map(span => span.textContent);
-    const doneList = Array.from(document.querySelectorAll("#doneUl li span")).map(span => span.textContent);
-  
-    localStorage.setItem("nowTasks", JSON.stringify(nowList));
-    localStorage.setItem("doneTasks", JSON.stringify(doneList));
-  }
+  const nowList = Array.from(document.querySelectorAll("#nowUl li span")).map(span => span.textContent);
+  const doneList = Array.from(document.querySelectorAll("#doneUl li span")).map(span => span.textContent);
+  const nowChecked = Array.from(document.querySelectorAll("#nowUl li input[type='checkbox']")).map(checkbox => checkbox.checked);
+  const doneChecked = Array.from(document.querySelectorAll("#doneUl li input[type='checkbox']")).map(checkbox => checkbox.checked);
+
+  localStorage.setItem("nowTasks", JSON.stringify(nowList));
+  localStorage.setItem("doneTasks", JSON.stringify(doneList));
+  localStorage.setItem("nowChecked", JSON.stringify(nowChecked));
+  localStorage.setItem("doneChecked", JSON.stringify(doneChecked));
+}
   
   function loadTasks() {
     const nowList = JSON.parse(localStorage.getItem("nowTasks")) || [];
     const doneList = JSON.parse(localStorage.getItem("doneTasks")) || [];
+    const nowChecked = JSON.parse(localStorage.getItem("nowChecked")) || [];
+    const doneChecked = JSON.parse(localStorage.getItem("doneChecked")) || [];
     const nowUl = document.getElementById("nowUl") || createNewList();
     const doneUl = document.getElementById("doneUl") || createDoneList();
     const pNow = document.getElementById("now");
@@ -19,13 +25,17 @@ function saveTasks() {
     nowUl.innerHTML = "";
     doneUl.innerHTML = "";
   
-    nowList.forEach(task => {
+    nowList.forEach((task, index) => {
       const li = createTaskElement(task);
+      const checkbox = li.querySelector("input[type='checkbox']");
+      checkbox.checked = nowChecked[index];
       nowUl.appendChild(li);
     });
   
-    doneList.forEach(task => {
+    doneList.forEach((task, index) => {
       const li = createTaskElement(task);
+      const checkbox = li.querySelector("input[type='checkbox']");
+      checkbox.checked = doneChecked[index];
       doneUl.appendChild(li);
     });
 
