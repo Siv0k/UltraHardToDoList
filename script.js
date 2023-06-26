@@ -57,11 +57,6 @@ function saveTasks() {
       return;
     }
   
-    if (input.length > 70) {
-      alert("Задача слишком длинная, попробуйте еще раз(не более 70 символов)");
-      return;
-    }
-  
     if (repitTask) {
       alert("Такая задача уже есть, попробуйте еще раз");
       return;

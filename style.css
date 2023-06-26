@@ -2,7 +2,8 @@ html {
     background-color: #e7e6e6;
 }
 .ToDo {
-    width: 1000px;
+    max-width: 1000px;
+    min-width: 250px;
     margin: 0 auto;
 }
 
@@ -42,7 +43,10 @@ html {
 }
 
 #add {
-    width: 5%;
+    max-width: 40px;
+    max-height: 40px;
+    width: 100%;
+    height: 100%;
     padding: 10px 0;
     border: none;
     background-color: #33dd6c;
@@ -54,8 +58,6 @@ html {
 p {
     text-align: center;
 }
-
-
 
 ul {
     width: inherit;
@@ -70,6 +72,14 @@ li {
     color: #fff;
     margin: 0;
     padding: 10px;
+}
+
+span {
+    display: inline-block;
+    width: 70%;
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;   
 }
 
 #delete {
@@ -121,5 +131,4 @@ input[type="checkbox"]::-moz-check-indicator {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
 }
