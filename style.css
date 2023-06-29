@@ -65,6 +65,22 @@ ul {
     margin: 0;
 }
 
+#nowUl:empty::after {
+    content: "Нет задач";
+    padding: 10px;
+    margin: 0;
+    display: block;
+    text-align: center;
+}
+
+#doneUl:empty::after {
+    content: "Нет выполненных задач";
+    padding: 10px;
+    margin: 0;
+    display: block;
+    text-align: center;
+}
+
 li {
     list-style: none;
     width: inherit;
